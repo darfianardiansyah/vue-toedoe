@@ -28,7 +28,11 @@
             </div>
             <!-- <div class="task-date">24 Feb 12:00</div> -->
         </div>
-        <TaskActions @edit="isEdit = true" v-show="!isEdit" />
+        <TaskActions
+            @edit="isEdit = true"
+            v-show="!isEdit"
+            @remove="removeTask"
+        />
     </li>
 </template>
 
@@ -39,7 +43,7 @@ import TaskActions from "./TaskActions.vue";
 const props = defineProps({
     task: Object,
 });
-const emit = defineEmits(["updated", "completed"]);
+const emit = defineEmits(["updated", "completed", "removed"]);
 
 const isEdit = ref(false);
 const editingTask = ref(props.task.name);
@@ -72,5 +76,11 @@ const markTaskAsCompleted = (event) => {
         is_completed: !props.task.is_completed,
     };
     emit("completed", updatedTask);
+};
+
+const removeTask = () => {
+    if (confirm("Are you sure?")) {
+        emit("removed", props.task);
+    }
 };
 </script>
