@@ -2,7 +2,7 @@ import api from "./api";
 
 const resource = "/tasks"
 
-export const allTask = () => api.get(resource)
+export const allTasks = () => api.get(resource)
 
 export const createTask = task => api.post(resource, task)
 
