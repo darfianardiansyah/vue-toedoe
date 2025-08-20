@@ -4,12 +4,17 @@ import routes from "./routes";
 const router = createRouter({
   routes,
   history: createWebHistory(),
-//   linkActiveClass: "active",
+  //   linkActiveClass: "active",
 });
 
 router.beforeEach((to, from) => {
-  if (to.path === "/tasks") {
-    return { name: "login" };
+  if (to.meta.auth) {
+    return {
+      name: "login",
+      query: {
+        redirect: to.fullPath,
+      },
+    };
   }
 });
 
